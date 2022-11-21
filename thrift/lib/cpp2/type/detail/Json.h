@@ -14,6 +14,7 @@
  * limitations under the License.
  */
 
+
 #pragma once
 
 #include <string>
@@ -30,9 +31,7 @@ template <typename JsonType, typename JsonValue>
 class Json : public detail::EqWrap<Json<JsonType, JsonValue>, JsonValue> {
   using Base = detail::EqWrap<Json, JsonValue>;
   template <JsonType typ>
-  using JType = std::integral_constant<
-      std::underlying_type_t<JsonType>,
-      folly::to_underlying(typ)>;
+  using JType = std::integral_constant<JsonType, typ>;
   template <typename T, typename R = void>
   using if_not_self =
       std::enable_if_t<!std::is_same_v<folly::remove_cvref_t<T>, Json>, R>;
